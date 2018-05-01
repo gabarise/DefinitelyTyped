@@ -28,59 +28,121 @@ export function stringWidth(str: string): number;
 
 export function truncateString(str: string, maxWidth: number): string;
 
+type BoolFunc = (enable: boolean) => Terminal;
+
+type PrintfFunc = (format: string, ...args: any[]) => Terminal;
+
+type StringFunc = (arg: string)=> Terminal;
+
+type NumFunc = (register: number)=> Terminal;
+
+type TermOrFunc = BoolFunc | PrintfFunc | Terminal;
+
+type TermOrNumFunc = NumFunc | Terminal;
+
+type RgbFunc = (r: number, g: number, b: number) => Terminal;
+
+type TermOrRgbFunc = RgbFunc | BoolFunc | Terminal;
+
 export class Terminal {
     width: number;
     height: number;
 
-    defaultColor(): Terminal;
+    // ??? How to allow chaining?
+    defaultColor : TermOrFunc;
 
-    black(): Terminal;
+    black: TermOrFunc;
 
-    red(): Terminal;
+    red: TermOrFunc;
 
-    green(): Terminal;
+    green: TermOrFunc;
 
-    yellow(): Terminal;
+    yellow: TermOrFunc;
 
-    blue(): Terminal;
+    blue: TermOrFunc;
 
-    magenta: Terminal;
+    magenta: TermOrFunc;
 
-    cyan(): Terminal;
+    cyan: TermOrFunc;
 
-    white(): Terminal;
+    white: TermOrFunc;
 
-    brightBlack(): Terminal;
+    brightBlack: TermOrFunc;
 
-    brightRed(): Terminal;
+    brightRed: TermOrFunc;
 
-    brightGreen(): Terminal;
+    brightGreen: TermOrFunc;
 
-    brightYellow(): Terminal;
+    brightYellow: TermOrFunc;
 
-    brightBlue(): Terminal
+    brightBlue: TermOrFunc
 
-    brightMagenta(): Terminal;
+    brightMagenta: TermOrFunc;
 
-    brightCyan(): Terminal;
+    brightCyan: TermOrFunc;
 
-    brightWhite(): Terminal;
+    brightWhite: TermOrFunc;
 
-    color(register: number): Terminal;
+    color: TermOrNumFunc;
 
-    darkColor(register: number): Terminal;
+    darkColor: TermOrNumFunc;
 
-    brightColor(register: number): Terminal;
+    brightColor: TermOrNumFunc;
 
-    color256(register: number): Terminal;
+    color256: TermOrNumFunc;
 
-    colorRgb(r: number, g: number, b: number): Terminal;
+    colorRgb: TermOrRgbFunc;
 
-    colorRgbHex(rgb: string): Terminal;
+    colorRgbHex(rgb: string): StringFunc | Terminal;
 
-    colorGrayscale(l: number): Terminal;
+    colorGrayscale(l: number): TermOrNumFunc;
 
-    // TODO : missing functions (low-level)
+    bgDefaultColor(): TermOrFunc
+
+    bgBlack(): TermOrFunc;
+
+    bgRed(): TermOrFunc;
+
+    bgGreen(): TermOrFunc;
+
+    bgYellow(): TermOrFunc;
+
+    bgBlue(): TermOrFunc;
+
+    bgMagenta(): TermOrFunc;
+
+    bgCyan(): TermOrFunc;
+
+    bgWhite(): TermOrFunc;
+
+    bgDarkColor(): TermOrFunc;
+
+    bgBrightBlack(): TermOrFunc;
+
+    bgGray: TermOrFunc;
+    bgBrightRed: TermOrFunc;
+    bgBrightGreen: TermOrFunc
+    bgBrightYellow: TermOrFunc;
+    bgBrightBlue: TermOrFunc;
+    bgBrightMagenta: TermOrFunc
+    bgBrightCyan: TermOrFunc;
+    bgColor: TermOrNumFunc;
+    bgBrightWhite: TermOrFunc;
+    bgBrightColor: TermOrNumFunc;
+    bgColor256: TermOrNumFunc;
+    bgColorRgb: TermOrRgbFunc;
+    bgColorRgbHex: StringFunc | Terminal;
+    bgColorGrayScale: TermOrNumFunc;
+
+    styleReset: TermOrFunc;
+    bold: TermOrFunc;
+    dim: TermOrFunc;
+    italic: TermOrFunc;
+    underline: TermOrFunc;
+    blink: TermOrFunc;
+    inverse: TermOrFunc;
+    hidden: TermOrFunc;
+    strike: TermOrFunc;
 
     // TODO : missing functions (high-level)
 
